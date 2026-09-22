@@ -9,9 +9,10 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const exercisesPerPage = 9;
 
+  const safeExercises = Array.isArray(exercises) ? exercises : [];
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
-  const currentExercises = exercises.slice(
+  const currentExercises = safeExercises.slice(
     indexOfFirstExercise,
     indexOfLastExercise
   );
@@ -38,7 +39,7 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         );
       }
 
-      setExercises(exercisesData);
+      setExercises(Array.isArray(exercisesData) ? exercisesData : []);
     };
 
     fetchExercisesData();
@@ -60,12 +61,12 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
         ))}
       </Stack>
       <Stack mt="100px" alignItems="center">
-        {exercises.length > exercisesPerPage && (
+        {safeExercises.length > exercisesPerPage && (
           <Pagination
             color="standard"
             shape="rounded"
             defaultPage={1}
-            count={Math.ceil(exercises.length / exercisesPerPage)}
+            count={Math.ceil(safeExercises.length / exercisesPerPage)}
             page={currentPage}
             onChange={paginate}
             size="large"

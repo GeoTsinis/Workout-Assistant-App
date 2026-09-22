@@ -14,7 +14,8 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         exerciseOptions
       );
 
-      setBodyParts(['all', ...bodyPartsData]);
+      const parts = Array.isArray(bodyPartsData) ? bodyPartsData : [];
+      setBodyParts(['all', ...parts]);
     };
 
     fetchExercisesData();
@@ -27,12 +28,13 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
         exerciseOptions
       );
 
-      const searchedExercises = exercisesData.filter(
+      const list = Array.isArray(exercisesData) ? exercisesData : [];
+      const searchedExercises = list.filter(
         (exercise) =>
-          exercise.name.toLowerCase().includes(search) ||
-          exercise.target.toLowerCase().includes(search) ||
-          exercise.equipment.toLowerCase().includes(search) ||
-          exercise.bodyPart.toLowerCase().includes(search)
+          exercise.name?.toLowerCase().includes(search) ||
+          exercise.target?.toLowerCase().includes(search) ||
+          exercise.equipment?.toLowerCase().includes(search) ||
+          exercise.bodyPart?.toLowerCase().includes(search)
       );
 
       setSearch('');
