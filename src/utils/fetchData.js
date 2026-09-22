@@ -1,6 +1,5 @@
 /**
- * Portfolio deploy: RapidAPI keys must NEVER ship in REACT_APP_* vars
- * (those are embedded in the browser bundle and publicly readable).
+ * Portfolio deploy: RapidAPI keys must NEVER ship in REACT_APP_* vars.
  * This demo always uses local mock data — zero third-party API spend.
  */
 import { BODY_PARTS, MOCK_EXERCISES } from './mockData';
@@ -8,7 +7,11 @@ import { BODY_PARTS, MOCK_EXERCISES } from './mockData';
 export const exerciseOptions = { method: 'GET', headers: {} };
 export const youtubeOptions = { method: 'GET', headers: {} };
 
-const mockForUrl = (url) => {
+const byId = (id) =>
+  MOCK_EXERCISES.find((exercise) => exercise.id === String(id)) ||
+  MOCK_EXERCISES[0];
+
+const mockForUrl = (url = '') => {
   if (url.includes('bodyPartList')) {
     return BODY_PARTS.filter((part) => part !== 'all');
   }
@@ -31,20 +34,38 @@ const mockForUrl = (url) => {
   }
 
   if (url.includes('/exercises/exercise/')) {
-    const id = url.split('/exercises/exercise/')[1];
-    return (
-      MOCK_EXERCISES.find((exercise) => exercise.id === id) || MOCK_EXERCISES[0]
-    );
+    const id = url.split('/exercises/exercise/')[1]?.split('?')[0];
+    return byId(id);
   }
 
-  if (url.includes('youtube') || url.includes('search')) {
+  if (url.includes('youtube') || url.includes('/search')) {
+    const query = decodeURIComponent(
+      (url.split('query=')[1] || 'exercise').split('&')[0]
+    );
     return {
       contents: [
         {
           video: {
             videoId: 'IODxDxX7oi4',
-            title: 'Demo exercise form tip',
+            title: `${query} — demo form tip`,
             channelName: 'Workout Assistant Demo',
+            thumbnails: [
+              {
+                url: '/exercises/video-thumb.svg',
+              },
+            ],
+          },
+        },
+        {
+          video: {
+            videoId: 'U4FZC4C5Z8',
+            title: `${query} — common mistakes`,
+            channelName: 'Workout Assistant Demo',
+            thumbnails: [
+              {
+                url: '/exercises/video-thumb.svg',
+              },
+            ],
           },
         },
       ],
@@ -54,7 +75,6 @@ const mockForUrl = (url) => {
   return MOCK_EXERCISES;
 };
 
-export const fetchData = async (url) => {
-  // Deliberately ignore network/API keys on this portfolio demo.
-  return mockForUrl(url || '');
-};
+export const fetchData = async (url) => mockForUrl(url || '');
+
+export { MOCK_EXERCISES, byId };

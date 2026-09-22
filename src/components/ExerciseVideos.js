@@ -1,11 +1,30 @@
 import React from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 
-const ExerciseVideos = ({ exerciseVideos, name }) => {
-  if (!exerciseVideos.length) return 'Loading...';
+const ExerciseVideos = ({ exerciseVideos = [], name }) => {
+  const videos = (exerciseVideos || []).filter(
+    (item) => item?.video?.videoId && item?.video?.thumbnails?.[0]?.url
+  );
+
+  if (!videos.length) {
+    return (
+      <Box sx={{ marginTop: { lg: '80px', xs: '20px' } }} p="20px">
+        <Typography variant="h4" mb="16px">
+          Watch{' '}
+          <span style={{ color: '#ff2625', textTransform: 'capitalize' }}>
+            {name || 'exercise'}
+          </span>{' '}
+          videos
+        </Typography>
+        <Typography color="text.secondary">
+          Demo mode uses local placeholders — no YouTube API key required.
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
-    <Box sx={{ marginTop: { lg: '200px', xs: '20px' } }} p="20px">
+    <Box sx={{ marginTop: { lg: '80px', xs: '20px' } }} p="20px">
       <Typography variant="h3" mb="33px">
         Watch{' '}
         <span style={{ color: '#ff2625', textTransform: 'capitalize' }}>
@@ -19,12 +38,12 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
         alignItems="center"
         sx={{
           flexDirection: { lg: 'row' },
-          gap: { lg: '110px', xs: '0' },
+          gap: { lg: '40px', xs: '20px' },
         }}
       >
-        {exerciseVideos?.slice(0, 6).map((item, index) => (
+        {videos.slice(0, 6).map((item, index) => (
           <a
-            key={index}
+            key={`${item.video.videoId}-${index}`}
             className="exercise-video"
             href={`https://www.youtube.com/watch?v=${item.video.videoId}`}
             target="_blank"
@@ -35,7 +54,7 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
               <Typography variant="h6" color="#000">
                 {item.video.title}
               </Typography>
-              <Typography variant="h7" color="#000">
+              <Typography variant="body2" color="#000">
                 {item.video.channelName}
               </Typography>
             </Box>

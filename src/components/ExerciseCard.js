@@ -7,7 +7,7 @@ const ExerciseCard = ({ exercise }) => {
   return (
     <Link
       style={{ textDecoration: 'none' }}
-      className="exerciseCard"
+      className="exercise-card"
       to={`/exercise/${exercise.id}`}
     >
       <img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />

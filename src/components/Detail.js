@@ -4,22 +4,23 @@ import { Typography, Stack, Button } from '@mui/material';
 import BodyPartImage from '../assets/icons/body-part.png';
 import TargetImage from '../assets/icons/target.png';
 import EquipmentImage from '../assets/icons/equipment.png';
+
 const Detail = ({ exerciseDetail }) => {
-  const { name, gifUrl, bodyPart, target, equipment } = exerciseDetail;
+  const { name, gifUrl, bodyPart, target, equipment, description } =
+    exerciseDetail || {};
+
+  if (!name) {
+    return (
+      <Typography p="20px" variant="h5">
+        Loading exercise…
+      </Typography>
+    );
+  }
 
   const extraDetail = [
-    {
-      icon: BodyPartImage,
-      name: bodyPart,
-    },
-    {
-      icon: TargetImage,
-      name: target,
-    },
-    {
-      icon: EquipmentImage,
-      name: equipment,
-    },
+    { icon: BodyPartImage, name: bodyPart },
+    { icon: TargetImage, name: target },
+    { icon: EquipmentImage, name: equipment },
   ];
 
   return (
@@ -27,14 +28,20 @@ const Detail = ({ exerciseDetail }) => {
       gap="60px"
       sx={{ flexDirection: { lg: 'row' }, p: '20px', alignItems: 'center' }}
     >
-      <img src={gifUrl} alt={name} loading="lazy" className="detail-image" />
+      <img
+        src={gifUrl}
+        alt={name}
+        loading="lazy"
+        className="detail-image"
+        style={{ maxWidth: '100%', height: 'auto', objectFit: 'contain' }}
+      />
       <Stack sx={{ gap: { lg: '35px', xs: '20px' } }}>
-        <Typography variant="h3">{name}</Typography>
+        <Typography variant="h3" textTransform="capitalize">
+          {name}
+        </Typography>
         <Typography variant="h6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-          laudantium sunt repellendus numquam accusantium quo nihil ut hic iure
-          blanditiis voluptatem, est pariatur voluptates officia doloribus
-          minima, vitae, esse quis.
+          {description ||
+            `Practice ${name} with steady form. Control the eccentric, brace your core, and stop if you feel sharp pain.`}
         </Typography>
         {extraDetail.map((item) => (
           <Stack key={item.name} direction="row" gap="24px" alignItems="center">
@@ -43,12 +50,13 @@ const Detail = ({ exerciseDetail }) => {
                 background: '#fff2db',
                 borderRadius: '50%',
                 width: '100px',
+                height: '100px',
               }}
             >
               <img
                 src={item.icon}
-                alt={bodyPart}
-                style={{ width: '50px', height: '50ps' }}
+                alt={item.name}
+                style={{ width: '50px', height: '50px' }}
               />
             </Button>
             <Typography variant="h5" textTransform="capitalize">

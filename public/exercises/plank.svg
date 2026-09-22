@@ -1,0 +1,13 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" width="640" height="480" viewBox="0 0 640 480">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="480" rx="28" fill="url(#g)"/>
+  <circle cx="520" cy="90" r="48" fill="rgba(255,255,255,0.12)"/>
+  <circle cx="90" cy="400" r="70" fill="rgba(255,255,255,0.08)"/>
+  <text x="320" y="230" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" text-anchor="middle">Plank</text>
+  <text x="320" y="275" fill="rgba(255,255,255,0.85)" font-family="Arial, Helvetica, sans-serif" font-size="18" text-anchor="middle">Workout Assistant demo</text>
+</svg>

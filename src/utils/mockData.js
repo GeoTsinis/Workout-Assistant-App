@@ -12,19 +12,7 @@ export const BODY_PARTS = [
   'waist',
 ];
 
-// Local SVG data-URI thumbnails — no third-party CDN / API dependency.
-const thumb = (label, color) =>
-  `data:image/svg+xml,${encodeURIComponent(
-    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
-      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-        <stop stop-color="${color}" offset="0"/><stop stop-color="#111827" offset="1"/>
-      </linearGradient></defs>
-      <rect width="400" height="300" fill="url(#g)"/>
-      <text x="200" y="150" fill="white" font-size="22" font-family="Arial,sans-serif"
-        text-anchor="middle" dominant-baseline="middle">${label}</text>
-    </svg>`
-  )}`;
-
+// Local public assets — reliable in CRA + Vercel (no data-URI / CDN issues).
 export const MOCK_EXERCISES = [
   {
     id: '0001',
@@ -32,7 +20,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'chest',
     target: 'pectorals',
     equipment: 'barbell',
-    gifUrl: thumb('Bench Press', '#ef4444'),
+    gifUrl: '/exercises/bench-press.svg',
+    description:
+      'Lie on a bench, lower the bar to mid-chest, then press up. Keep feet planted and wrists stacked over elbows.',
   },
   {
     id: '0002',
@@ -40,7 +30,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper legs',
     target: 'quads',
     equipment: 'body weight',
-    gifUrl: thumb('Squat', '#f59e0b'),
+    gifUrl: '/exercises/squat.svg',
+    description:
+      'Stand tall, sit the hips back and down until thighs are about parallel, then drive through the mid-foot to stand.',
   },
   {
     id: '0003',
@@ -48,7 +40,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper arms',
     target: 'biceps',
     equipment: 'dumbbell',
-    gifUrl: thumb('Curl', '#3b82f6'),
+    gifUrl: '/exercises/curl.svg',
+    description:
+      'Hold dumbbells at your sides and curl them up without swinging. Squeeze at the top, then lower with control.',
   },
   {
     id: '0004',
@@ -56,7 +50,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'back',
     target: 'lats',
     equipment: 'body weight',
-    gifUrl: thumb('Pull Up', '#8b5cf6'),
+    gifUrl: '/exercises/pull-up.svg',
+    description:
+      'Hang from a bar, pull your chest toward it by driving elbows down, then lower fully without losing shoulder control.',
   },
   {
     id: '0005',
@@ -64,7 +60,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'waist',
     target: 'abs',
     equipment: 'body weight',
-    gifUrl: thumb('Plank', '#10b981'),
+    gifUrl: '/exercises/plank.svg',
+    description:
+      'Hold a straight line from head to heels. Brace your core, squeeze glutes, and keep hips from sagging or piking.',
   },
   {
     id: '0006',
@@ -72,7 +70,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'cardio',
     target: 'cardiovascular system',
     equipment: 'rope',
-    gifUrl: thumb('Jump Rope', '#ec4899'),
+    gifUrl: '/exercises/jump-rope.svg',
+    description:
+      'Stay light on the balls of your feet, keep elbows close, and spin the rope with wrists — not big arm swings.',
   },
   {
     id: '0007',
@@ -80,7 +80,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'shoulders',
     target: 'delts',
     equipment: 'dumbbell',
-    gifUrl: thumb('Shoulder Press', '#06b6d4'),
+    gifUrl: '/exercises/shoulder-press.svg',
+    description:
+      'Press dumbbells overhead from shoulder height. Avoid excessive lower-back arch; lock out softly at the top.',
   },
   {
     id: '0008',
@@ -88,7 +90,9 @@ export const MOCK_EXERCISES = [
     bodyPart: 'lower legs',
     target: 'calves',
     equipment: 'body weight',
-    gifUrl: thumb('Calf Raise', '#84cc16'),
+    gifUrl: '/exercises/calf-raise.svg',
+    description:
+      'Rise onto the balls of your feet, pause, then lower your heels under control for a full stretch.',
   },
   {
     id: '0009',
@@ -96,6 +100,8 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper arms',
     target: 'triceps',
     equipment: 'body weight',
-    gifUrl: thumb('Tricep Dip', '#f97316'),
+    gifUrl: '/exercises/dip.svg',
+    description:
+      'Support yourself on parallel bars or a bench, lower until elbows are about 90°, then press back up.',
   },
 ];
