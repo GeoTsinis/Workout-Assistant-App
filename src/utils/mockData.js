@@ -12,6 +12,19 @@ export const BODY_PARTS = [
   'waist',
 ];
 
+// Local SVG data-URI thumbnails — no third-party CDN / API dependency.
+const thumb = (label, color) =>
+  `data:image/svg+xml,${encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="${color}" offset="0"/><stop stop-color="#111827" offset="1"/>
+      </linearGradient></defs>
+      <rect width="400" height="300" fill="url(#g)"/>
+      <text x="200" y="150" fill="white" font-size="22" font-family="Arial,sans-serif"
+        text-anchor="middle" dominant-baseline="middle">${label}</text>
+    </svg>`
+  )}`;
+
 export const MOCK_EXERCISES = [
   {
     id: '0001',
@@ -19,7 +32,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'chest',
     target: 'pectorals',
     equipment: 'barbell',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/03/27/07/08/man-1282232_1280.jpg',
+    gifUrl: thumb('Bench Press', '#ef4444'),
   },
   {
     id: '0002',
@@ -27,7 +40,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper legs',
     target: 'quads',
     equipment: 'body weight',
-    gifUrl: 'https://cdn.pixabay.com/photo/2017/04/27/08/29/man-2264825_1280.jpg',
+    gifUrl: thumb('Squat', '#f59e0b'),
   },
   {
     id: '0003',
@@ -35,7 +48,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper arms',
     target: 'biceps',
     equipment: 'dumbbell',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/11/22/22/24/adult-1850925_1280.jpg',
+    gifUrl: thumb('Curl', '#3b82f6'),
   },
   {
     id: '0004',
@@ -43,7 +56,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'back',
     target: 'lats',
     equipment: 'body weight',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/03/27/07/08/man-1282232_1280.jpg',
+    gifUrl: thumb('Pull Up', '#8b5cf6'),
   },
   {
     id: '0005',
@@ -51,7 +64,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'waist',
     target: 'abs',
     equipment: 'body weight',
-    gifUrl: 'https://cdn.pixabay.com/photo/2017/08/07/14/02/people-2604149_1280.jpg',
+    gifUrl: thumb('Plank', '#10b981'),
   },
   {
     id: '0006',
@@ -59,7 +72,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'cardio',
     target: 'cardiovascular system',
     equipment: 'rope',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/11/21/16/11/jump-1845960_1280.jpg',
+    gifUrl: thumb('Jump Rope', '#ec4899'),
   },
   {
     id: '0007',
@@ -67,7 +80,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'shoulders',
     target: 'delts',
     equipment: 'dumbbell',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/03/27/07/08/man-1282232_1280.jpg',
+    gifUrl: thumb('Shoulder Press', '#06b6d4'),
   },
   {
     id: '0008',
@@ -75,7 +88,7 @@ export const MOCK_EXERCISES = [
     bodyPart: 'lower legs',
     target: 'calves',
     equipment: 'body weight',
-    gifUrl: 'https://cdn.pixabay.com/photo/2017/04/27/08/29/man-2264825_1280.jpg',
+    gifUrl: thumb('Calf Raise', '#84cc16'),
   },
   {
     id: '0009',
@@ -83,6 +96,6 @@ export const MOCK_EXERCISES = [
     bodyPart: 'upper arms',
     target: 'triceps',
     equipment: 'body weight',
-    gifUrl: 'https://cdn.pixabay.com/photo/2016/11/22/22/24/adult-1850925_1280.jpg',
+    gifUrl: thumb('Tricep Dip', '#f97316'),
   },
 ];

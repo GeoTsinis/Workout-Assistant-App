@@ -1,20 +1,12 @@
+/**
+ * Portfolio deploy: RapidAPI keys must NEVER ship in REACT_APP_* vars
+ * (those are embedded in the browser bundle and publicly readable).
+ * This demo always uses local mock data — zero third-party API spend.
+ */
 import { BODY_PARTS, MOCK_EXERCISES } from './mockData';
 
-export const exerciseOptions = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY || '',
-    'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
-  },
-};
-
-export const youtubeOptions = {
-  method: 'GET',
-  headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY || '',
-    'X-RapidAPI-Host': 'youtube-search-and-download.p.rapidapi.com',
-  },
-};
+export const exerciseOptions = { method: 'GET', headers: {} };
+export const youtubeOptions = { method: 'GET', headers: {} };
 
 const mockForUrl = (url) => {
   if (url.includes('bodyPartList')) {
@@ -26,9 +18,23 @@ const mockForUrl = (url) => {
     return MOCK_EXERCISES.filter((exercise) => exercise.bodyPart === part);
   }
 
+  if (url.includes('/exercises/target/')) {
+    const target = decodeURIComponent(url.split('/exercises/target/')[1] || '');
+    return MOCK_EXERCISES.filter((exercise) => exercise.target === target);
+  }
+
+  if (url.includes('/exercises/equipment/')) {
+    const equipment = decodeURIComponent(
+      url.split('/exercises/equipment/')[1] || ''
+    );
+    return MOCK_EXERCISES.filter((exercise) => exercise.equipment === equipment);
+  }
+
   if (url.includes('/exercises/exercise/')) {
     const id = url.split('/exercises/exercise/')[1];
-    return MOCK_EXERCISES.find((exercise) => exercise.id === id) || MOCK_EXERCISES[0];
+    return (
+      MOCK_EXERCISES.find((exercise) => exercise.id === id) || MOCK_EXERCISES[0]
+    );
   }
 
   if (url.includes('youtube') || url.includes('search')) {
@@ -48,32 +54,7 @@ const mockForUrl = (url) => {
   return MOCK_EXERCISES;
 };
 
-export const fetchData = async (url, options) => {
-  try {
-    if (!process.env.REACT_APP_RAPID_API_KEY) {
-      return mockForUrl(url);
-    }
-
-    const response = await fetch(url, options);
-    if (!response.ok) {
-      return mockForUrl(url);
-    }
-
-    const data = await response.json();
-    if (
-      data == null ||
-      data.message ||
-      data.error ||
-      (Array.isArray(data) === false &&
-        !url.includes('exercise/') &&
-        !url.includes('youtube') &&
-        !url.includes('search'))
-    ) {
-      return mockForUrl(url);
-    }
-
-    return data;
-  } catch {
-    return mockForUrl(url);
-  }
+export const fetchData = async (url) => {
+  // Deliberately ignore network/API keys on this portfolio demo.
+  return mockForUrl(url || '');
 };
