@@ -48,8 +48,12 @@ body {
 }
 
 .detail-image {
-  width: 729px;
-  height: 742px;
+  width: min(100%, 520px);
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f3f4f6;
 }
 
 .hero-banner-img {
@@ -78,6 +82,9 @@ body {
 
 .exercise-card img {
   height: 326px;
+  width: 100%;
+  object-fit: cover;
+  background: #f3f4f6;
 }
 
 .bodyPart-card {
